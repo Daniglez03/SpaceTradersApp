@@ -25,3 +25,13 @@ export const getServerState = async () => {
         console.error(error)
     }
 }
+
+export const getNewUser = async (newName) => {
+    try {
+        const response = await fetch(`https://api.spacetraders.io/users/${newName}/claim`);
+        const data = await response.json();
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}

@@ -1,14 +1,11 @@
-import { View, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 
-import Login from './Login'
-import Register from './Register'
-
-const Home = () => {
+const Logout = ({setLogout}) => {
     return (
         <View style={{flex:1}}>
             <View style={styles.container}>
-                <Button title='Login' onPress={() => {<Login />}} />
-                <Button title='Register' onPress={() => {<Register />}} />
+                <Text>Logout</Text>
+                <Button title='Logout' onPress={setLogout} />
             </View>
         </View>
     )
@@ -33,4 +30,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Home
+export default Logout

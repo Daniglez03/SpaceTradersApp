@@ -6,9 +6,10 @@ import { RootSiblingParent } from 'react-native-root-siblings'
 import { useEffect, useState } from 'react';
 
 import * as SecureStore from 'expo-secure-store';
-import Home from './screens/Home';
 import ServerStatus from './screens/ServerStatus';
 import Profile from './screens/Profile';
+import Logout from './screens/Logout';
+import Home from './screens/Home';
 
 const Drawer = createDrawerNavigator();
 const STORE_TOKEN_KEY = 'mytoken'
@@ -25,14 +26,6 @@ export default function App() {
 
   const getValueFor = async(key) => {
     let result = await SecureStore.getItemAsync(key);
-  
-    if (result) {
-      alert(`Tu valor es ${result}`)
-      return result
-    } else {
-      alert('No existe esa key')
-      return ''
-    }
   }
 
   const save = async (key, value) => {
@@ -42,10 +35,15 @@ export default function App() {
   const [userToken, setUserToken] = useState('')
 
   const storeUserToken = (newToken) => {
-    console.log('Mamy estoy en la app: ', newToken);
+    console.log(newToken);
     setUserToken(newToken);
     save(STORE_TOKEN_KEY, newToken)
     setUserToken(newToken)
+  }
+
+  const setLogout = () => {
+    console.log("Logout...");
+    setUserToken('')
   }
 
   return (
@@ -56,14 +54,15 @@ export default function App() {
             userToken === ''
             ?
             <>
-              <Drawer.Screen name='Login Way'>
-                {() => <Home onLogin={storeUserToken} />}
-              </Drawer.Screen>
+              <Drawer.Screen name='Home' component={Home} />
             </>
             :
             <>
               <Drawer.Screen name='Server Status' component={ServerStatus} />
               <Drawer.Screen name='Profile' component={Profile} />
+              <Drawer.Screen name='Logout'>
+                {() => <Logout setLogout={setLogout} />}
+              </Drawer.Screen>
             </>
           }
         </Drawer.Navigator>
