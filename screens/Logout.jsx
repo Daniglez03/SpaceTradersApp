@@ -4,7 +4,6 @@ const Logout = ({setLogout}) => {
     return (
         <View style={{flex:1}}>
             <View style={styles.container}>
-                <Text>Logout</Text>
                 <Button title='Logout' onPress={setLogout} />
             </View>
         </View>
