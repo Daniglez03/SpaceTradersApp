@@ -4,24 +4,24 @@ import { StyleSheet } from 'react-native';
 
 import { getUserProfile } from '../services/SpaceTraders'
 
-const Profile = () => {
-    
-    const [profile, setProfile] = useState({user:{username: ''}});
+const Profile = ({ token }) => {
+    const [profile, setProfile] = useState('');
 
     useEffect(() => {
+
         const fetchUserAccount = async () => {
-            const userProfile = await getUserProfile();
-            setProfile(userProfile)
+            const profile = await getUserProfile(token);
+            setProfile(profile)
         }
         fetchUserAccount()
     }, [])
 
     function tabla() {
         return (
-            <View style={{borderWidth: 5, height: '100%', borderColor: 'white'}}>
+            <View style={{ borderWidth: 5, height: '100%', borderColor: 'white' }}>
                 <View style={styles.edit}>
-                    <Image style={styles.image} source={require('../assets/NiggaMelon.jpg')}/>
-                    <Text style={{paddingTop: 35}}>Username:  {profile.user.username}</Text>
+                    <Image style={styles.image} source={require('../assets/NiggaMelon.jpg')} />
+                    <Text style={{ paddingTop: 35 }}>Username:  {profile.user.username}</Text>
                 </View>
                 <View style={styles.viewText}>
                     <Text style={styles.textAlign}>ShipCount: {profile.user.shipCount}</Text>
@@ -34,7 +34,9 @@ const Profile = () => {
     }
 
     return (
-        tabla()
+        profile
+            ? tabla()
+            : ''
     )
 }
 
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     image: {
         borderColor: 'black',
         borderWidth: 5,
-        borderRadius:50,
+        borderRadius: 50,
         width: 90,
         height: 90
     },

@@ -1,14 +1,13 @@
 import { View, StyleSheet, Button } from 'react-native'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
-import Login from './Login'
-import Register from './Register'
+const Home = ({ setConfirmJoin }) => {
 
-const Home = () => {
     return (
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
             <View style={styles.container}>
-                <Button title='Login' onPress={() => {<Login />}} />
-                <Button title='Register' onPress={() => {<Register />}} />
+                <Button title='Login' onPress={() => setConfirmJoin(1)} />
+                <Button title='Register' onPress={() => setConfirmJoin(2)} />
             </View>
         </View>
     )
