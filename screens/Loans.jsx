@@ -1,13 +1,83 @@
-import { View, Text } from 'react-native'
-import React, { useEffect } from 'react'
+import { View, Text, StyleSheet, FlatList, Button } from 'react-native'
+import { useEffect, useState } from 'react'
+import { getAvailableLoans, takeALoan } from '../services/SpaceTraders';
 
-const Loans = () => {
+import Toast from 'react-native-root-toast';
+
+const Loans = ({ token }) => {
+    const [loans, setLoans] = useState('')
+    useEffect(() => {
+        const availableLoans = async () => {
+            const data = await getAvailableLoans(token)
+            setLoans(data)
+        }
+        availableLoans()
+    }, [])
+
+    const takeLoan = async (type) => {
+        const data = await takeALoan(token, type);
+        console.log(data);
+        if (data.status === "CURRENT") {
+            Toast.show(`Loan ${data.type} take`, {
+                duration: Toast.durations.LONG
+            })
+        }
+    }
 
     return (
-        <View>
-            <Text>Loans</Text>
+        <View style={{ flex: 1 }}>
+            <View style={styles.container}>
+                <Text style={styles.title}>Available Loans</Text>
+
+                <FlatList data={loans.loans} renderItem={({ item, index }) => {
+                    console.log(item);
+                    return (
+                        loans === ''
+                            ? <Text>No loans Available</Text>
+                            : <View style={styles.modal_structure}>
+                                <Text style={{ fontSize: 20 }}>Loan:</Text>
+                                <Text>- {item.amount} Crd</Text>
+                                <Text>- Rate: {item.rate} %</Text>
+                                <Text>- Term: {item.termInDays} days</Text>
+                                <Text style={{paddingBottom: 10}}>- Type: {item.type}</Text>
+                                <Button title='takeLoan' onPress={() => takeLoan(item.type)}/>
+                            </View>
+                    )
+                }} />
+
+            </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'flex-end'
+    },
+    button: {
+        marginBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        height: 40,
+        width: 80,
+        backgroundColor: 'lightgreen',
+    },
+    title: {
+        fontSize: 30,
+    },
+    modal_structure: {
+        borderColor: 'black',
+        borderWidth: 1,
+        width: 200,
+        padding: 10,
+        height: 180,
+        borderRadius: 10,
+        backgroundColor: '#fff'
+    }
+})
 
 export default Loans

@@ -54,12 +54,22 @@ export default function App() {
                         {() => <Home setConfirmJoin={setConfirmJoin} />}
                       </Drawer.Screen>
                       : confirmJoin === 1
-                        ? <Drawer.Screen name='Log'>
-                          {() => <Login setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
-                        </Drawer.Screen>
-                        : <Drawer.Screen name='Register'>
-                          {() => <Register setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
-                        </Drawer.Screen>
+                        ? <>
+                          <Drawer.Screen name='Log'>
+                            {() => <Login setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                          </Drawer.Screen>
+                          <Drawer.Screen name='Register'>
+                            {() => <Register setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                          </Drawer.Screen>
+                        </>
+                        : <>
+                          <Drawer.Screen name='Register'>
+                            {() => <Register setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                          </Drawer.Screen>
+                          <Drawer.Screen name='Log'>
+                            {() => <Login setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                          </Drawer.Screen>
+                        </>
                   }
                 </>
                 : <>
@@ -70,11 +80,11 @@ export default function App() {
                   <Drawer.Screen name='Server Status' component={ServerStatus} />
 
                   <Drawer.Screen name='Loans'>
-                    {() => <Loans />}
+                    {() => <Loans token={userToken} />}
                   </Drawer.Screen>
 
                   <Drawer.Screen name='Ships'>
-                    {() => <Ships />}
+                    {() => <Ships token={userToken}/>}
                   </Drawer.Screen>
 
                   <Drawer.Screen name='Logout'>
@@ -92,7 +102,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

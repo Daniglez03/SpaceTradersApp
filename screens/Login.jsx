@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native"
 import { StyleSheet } from 'react-native';
 import { getUserProfile } from '../services/SpaceTraders';
-import { useNavigation } from '@react-navigation/native';
 
 import Toast from 'react-native-root-toast';
 
@@ -32,7 +31,9 @@ const Login = ({ setToken, setConfirmJoin }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Button title="goBack" onPress={() => setConfirmJoin(0)} />
+            <View style={styles.backBtnPstn}>
+                <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"}/>
+            </View>
             <View style={styles.container}>
                 <Text>Login: </Text>
                 {
@@ -43,7 +44,6 @@ const Login = ({ setToken, setConfirmJoin }) => {
                                 onChangeText={setUserToken}
                                 value={userToken}
                                 placeholder='Introduzca token' />
-                            <Button title='Home' onPress={() => {tokenHandler()}} />
                         </>
                         : <>
                             <TextInput
@@ -52,9 +52,9 @@ const Login = ({ setToken, setConfirmJoin }) => {
                                 value={userToken}
                                 placeholder='Introduzca token' />
                             <Text style={{ color: 'red' }}>SomeThing went wrong</Text>
-                            <Button title='Home' onPress={() => {tokenHandler()}} />
                         </>
                 }
+                <Button title='Login' onPress={() => {tokenHandler()}} color={"green"} />
             </View>
         </View>
     )
@@ -63,7 +63,6 @@ const Login = ({ setToken, setConfirmJoin }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'flex-end'
@@ -92,7 +91,15 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderWidth: 1,
         borderRadius: 2,
-    }
+    },
+    backBtnPstn: {
+        display: "flex",
+        flexDirection: "row",
+        width: '100%',
+        justifyContent: "flex-end",
+        marginTop: 5,
+        paddingRight: 5
+    },
 })
 
 export default Login

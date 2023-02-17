@@ -25,8 +25,16 @@ export const getServerState = async () => {
 
 export const getNewUser = async (newName) => {
     try {
-        const response = await fetch(`https://api.spacetraders.io/users/${newName}/claim`);
-        const data = await response.json();
+        const data = await fetch(`https://api.spacetraders.io/users/${newName}/claim`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         return data
     } catch (error) {
         console.error(error)
@@ -37,7 +45,33 @@ export const getAvailableLoans = async (token) => {
     try {
         const response = await fetch(`https://api.spacetraders.io/types/loans?token=${token}`);
         const data = await response.json();
-        console.log(data);
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const takeALoan = async (token, type) => {
+    try {
+        const data = await fetch(`https://api.spacetraders.io/my/loans?token=${token}&type=${type}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => response.json())
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getAvailableShips = async (token) => {
+    try {
+        const response = await fetch(`https://api.spacetraders.io/systems/OE/ship-listings?token=${token}`);
+        const data = await response.json();
         return data
     } catch (error) {
         console.error(error)

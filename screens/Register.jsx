@@ -1,5 +1,4 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
 import { getNewUser } from '../services/SpaceTraders';
 import { useState } from "react";
 
@@ -13,7 +12,8 @@ const Register = ({ setToken, setConfirmJoin }) => {
     const tokenHandler = async () => {
         if (newUserNickname !== '') {
             const data = await getNewUser(newUserNickname)
-            if (data.user) {
+            console.log(data);
+            if (data.user.username === newUserNickname) {
                 console.log("Nickname Creado");
                 setToken(data.token)
             } else {
@@ -32,7 +32,9 @@ const Register = ({ setToken, setConfirmJoin }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Button title='goBack' onPress={() => setConfirmJoin(0)} />
+            <View style={styles.backBtnPstn}>
+                <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"}/>
+            </View>
             <View style={styles.container}>
                 <Text>Register: </Text>
                 {
@@ -50,7 +52,7 @@ const Register = ({ setToken, setConfirmJoin }) => {
                                 placeholder='Introduzca Nickname' />
                         </>
                 }
-                <Button title='Register' onPress={tokenHandler} />
+                <Button title='Register' onPress={tokenHandler} color={"orange"}/>
             </View>
         </View>
     )
@@ -59,7 +61,6 @@ const Register = ({ setToken, setConfirmJoin }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'flex-end'
@@ -88,7 +89,15 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderWidth: 1,
         borderRadius: 2,
-    }
+    },
+    backBtnPstn: {
+        display: "flex",
+        flexDirection: "row",
+        width: '100%',
+        justifyContent: "flex-end",
+        marginTop: 5,
+        paddingRight: 5
+    },
 })
 
 export default Register
