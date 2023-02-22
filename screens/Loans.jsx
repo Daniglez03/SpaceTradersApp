@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet, FlatList, Button } from 'react-native'
 import { useEffect, useState } from 'react'
 import { getAvailableLoans, takeALoan } from '../services/SpaceTraders';
+import { useNavigation } from '@react-navigation/native';
 
 import Toast from 'react-native-root-toast';
 
 const Loans = ({ token }) => {
     const [loans, setLoans] = useState('')
+    const navigaton = useNavigation()
+
     useEffect(() => {
         const availableLoans = async () => {
             const data = await getAvailableLoans(token)
@@ -16,9 +19,15 @@ const Loans = ({ token }) => {
 
     const takeLoan = async (type) => {
         const data = await takeALoan(token, type);
-        console.log(data);
-        if (data.status === "CURRENT") {
-            Toast.show(`Loan ${data.type} take`, {
+
+        if (data.loan.status === "CURRENT") {
+            Toast.show(`Loan '${data.loan.type}' take`, {
+                duration: Toast.durations.LONG
+            })
+            navigaton.navigate('Home')
+        }
+        if (data.error) {
+            Toast.show(`You can only take the loan once`, {
                 duration: Toast.durations.LONG
             })
         }

@@ -4,10 +4,11 @@ import { useState } from "react";
 
 import Toast from 'react-native-root-toast';
 
-const Register = ({ setToken, setConfirmJoin }) => {
+const Register = ({ setToken, setConfirmJoin, save }) => {
     
     const [newUserNickname, setNewUserNickname] = useState('');
     const [confirmNewUser, setConfirmNewUser] = useState(true);
+    const STORE_TOKEN_KEY = 'mytoken'
 
     const tokenHandler = async () => {
         if (newUserNickname !== '') {
@@ -16,6 +17,7 @@ const Register = ({ setToken, setConfirmJoin }) => {
             if (data.user.username === newUserNickname) {
                 console.log("Nickname Creado");
                 setToken(data.token)
+                save(STORE_TOKEN_KEY, data.token)
             } else {
                 console.log("El usuario ya existe");
                 setConfirmNewUser(false)

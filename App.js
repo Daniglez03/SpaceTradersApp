@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { RootSiblingParent } from 'react-native-root-siblings'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ServerStatus from './screens/ServerStatus';
 import Profile from './screens/Profile';
 import Logout from './screens/Logout';
@@ -21,17 +21,20 @@ const STORE_TOKEN_KEY = 'mytoken'
 export default function App() {
 
   const save = async (key, value) => {
-    await SecureStore.setItemAsync(key, value);
+    await AsyncStorage.setItem(key, value);
   }
 
   const [userToken, setUserToken] = useState('')
   const [confirmJoin, setConfirmJoin] = useState(0)
 
-  const storeUserToken = (newToken) => {
-    console.log(newToken);
-    setUserToken(newToken);
-    save(STORE_TOKEN_KEY, newToken)
-    setUserToken(newToken)
+  async function getValueFor(token) {
+    const result = await AsyncStorage.getItem(token);
+    console.log(result);
+    if (result) {
+      return result;
+    } else {
+      return '';
+    }
   }
 
   const setLogout = () => {
@@ -39,6 +42,20 @@ export default function App() {
     setConfirmJoin(0)
     setUserToken('')
   }
+
+  useEffect(() => {
+    const retrieveStoredToken = async () => {
+      const storedToken = await getValueFor(STORE_TOKEN_KEY);
+      if (storedToken) {
+        setUserToken(storedToken);
+      }
+      if (userToken !== '') {
+        save(STORE_TOKEN_KEY ,userToken)
+      }
+    }
+    retrieveStoredToken();
+    console.log("token => ", userToken);
+  }, [])
 
   return (
     <RootSiblingParent>
@@ -56,18 +73,18 @@ export default function App() {
                       : confirmJoin === 1
                         ? <>
                           <Drawer.Screen name='Log'>
-                            {() => <Login setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                            {() => <Login setToken={setUserToken} setConfirmJoin={setConfirmJoin} save={save}/>}
                           </Drawer.Screen>
                           <Drawer.Screen name='Register'>
-                            {() => <Register setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                            {() => <Register setToken={setUserToken} setConfirmJoin={setConfirmJoin} save={save} />}
                           </Drawer.Screen>
                         </>
                         : <>
                           <Drawer.Screen name='Register'>
-                            {() => <Register setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                            {() => <Register setToken={setUserToken} setConfirmJoin={setConfirmJoin} save={save} />}
                           </Drawer.Screen>
                           <Drawer.Screen name='Log'>
-                            {() => <Login setToken={setUserToken} setConfirmJoin={setConfirmJoin} />}
+                            {() => <Login setToken={setUserToken} setConfirmJoin={setConfirmJoin} save={save} />}
                           </Drawer.Screen>
                         </>
                   }

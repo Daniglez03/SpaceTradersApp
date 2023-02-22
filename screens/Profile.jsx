@@ -13,7 +13,11 @@ const Profile = ({ token }) => {
     useEffect(() => {
         const fetchUserAccount = async () => {
             const profile = await getUserProfile(token);
-            setProfile(profile)
+            if (profile !== null) {
+                setProfile(profile)
+            } else {
+                console.log("No hay perfil");
+            }
         }
         fetchUserAccount()
     }, [])
@@ -47,9 +51,7 @@ const Profile = ({ token }) => {
     }
 
     return (
-        profile
-            ? tabla()
-            : ''
+        profile && tabla()
     )
 }
 

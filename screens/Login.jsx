@@ -5,10 +5,11 @@ import { getUserProfile } from '../services/SpaceTraders';
 
 import Toast from 'react-native-root-toast';
 
-const Login = ({ setToken, setConfirmJoin }) => {
+const Login = ({ setToken, setConfirmJoin, save }) => {
 
     const [userToken, setUserToken] = useState('');
     const [tokenCorrect, setUserCorrect] = useState(true);
+    const STORE_TOKEN_KEY = 'mytoken'
 
     const tokenHandler = async () => {
         if (userToken !== '') {
@@ -16,6 +17,7 @@ const Login = ({ setToken, setConfirmJoin }) => {
             if (data.user) {
                 setUserCorrect(true)
                 setToken(userToken)
+                save(STORE_TOKEN_KEY, userToken)
                 console.log(userToken);
                 setUserToken('')
             } else {
