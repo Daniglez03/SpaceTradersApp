@@ -1,13 +1,14 @@
 import { View, StyleSheet, Button } from 'react-native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
 
 const Home = ({ setConfirmJoin }) => {
 
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.container}>
-                <Button title='Login' onPress={() => setConfirmJoin(1)} />
-                <Button title='Register' onPress={() => setConfirmJoin(2)} />
+                <View style={styles.position}>
+                    <Button title='Login' onPress={() => setConfirmJoin(1)} color={"green"} />
+                    <Button title='Register' onPress={() => setConfirmJoin(2)} color={"orange"} />
+                </View>
             </View>
         </View>
     )
@@ -16,7 +17,6 @@ const Home = ({ setConfirmJoin }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'flex-end'
@@ -30,6 +30,11 @@ const styles = StyleSheet.create({
         width: 80,
         backgroundColor: 'lightgreen',
     },
+    position: {
+        height: 100,
+        display: 'flex',
+        justifyContent: 'space-between'
+    }
 })
 
 export default Home

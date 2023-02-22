@@ -1,22 +1,24 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
 import { getNewUser } from '../services/SpaceTraders';
 import { useState } from "react";
 
 import Toast from 'react-native-root-toast';
 
-const Register = ({ setToken, setConfirmJoin }) => {
-    
+const Register = ({ setToken, setConfirmJoin, save }) => {
+
     const [newUserNickname, setNewUserNickname] = useState('');
     const [confirmNewUser, setConfirmNewUser] = useState(true);
+    const STORE_TOKEN_KEY = 'mytoken'
 
     const tokenHandler = async () => {
         if (newUserNickname !== '') {
             const data = await getNewUser(newUserNickname)
-            if (data.user) {
+            if (data.user.username) {
                 console.log("Nickname Creado");
                 setToken(data.token)
-            } else {
+                save(STORE_TOKEN_KEY, data.token)
+            }
+            if (data.error.message) {
                 console.log("El usuario ya existe");
                 setConfirmNewUser(false)
                 Toast.show('Invalid Nickname, Please introduce other', {
@@ -32,7 +34,9 @@ const Register = ({ setToken, setConfirmJoin }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Button title='goBack' onPress={() => setConfirmJoin(0)} />
+            <View style={styles.backBtnPstn}>
+                <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"} />
+            </View>
             <View style={styles.container}>
                 <Text>Register: </Text>
                 {
@@ -48,9 +52,10 @@ const Register = ({ setToken, setConfirmJoin }) => {
                                 onChangeText={setNewUserNickname}
                                 value={newUserNickname}
                                 placeholder='Introduzca Nickname' />
+                            <Text style={{ color: 'red' }}>Nickname is used</Text>
                         </>
                 }
-                <Button title='Register' onPress={tokenHandler} />
+                <Button title='Register' onPress={tokenHandler} color={"orange"} />
             </View>
         </View>
     )
@@ -59,7 +64,6 @@ const Register = ({ setToken, setConfirmJoin }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'flex-end'
@@ -88,7 +92,15 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderWidth: 1,
         borderRadius: 2,
-    }
+    },
+    backBtnPstn: {
+        display: "flex",
+        flexDirection: "row",
+        width: '100%',
+        justifyContent: "flex-end",
+        marginTop: 5,
+        paddingRight: 5
+    },
 })
 
 export default Register
