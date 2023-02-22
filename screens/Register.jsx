@@ -5,7 +5,7 @@ import { useState } from "react";
 import Toast from 'react-native-root-toast';
 
 const Register = ({ setToken, setConfirmJoin, save }) => {
-    
+
     const [newUserNickname, setNewUserNickname] = useState('');
     const [confirmNewUser, setConfirmNewUser] = useState(true);
     const STORE_TOKEN_KEY = 'mytoken'
@@ -13,12 +13,12 @@ const Register = ({ setToken, setConfirmJoin, save }) => {
     const tokenHandler = async () => {
         if (newUserNickname !== '') {
             const data = await getNewUser(newUserNickname)
-            console.log(data);
-            if (data.user.username === newUserNickname) {
+            if (data.user.username) {
                 console.log("Nickname Creado");
                 setToken(data.token)
                 save(STORE_TOKEN_KEY, data.token)
-            } else {
+            }
+            if (data.error.message) {
                 console.log("El usuario ya existe");
                 setConfirmNewUser(false)
                 Toast.show('Invalid Nickname, Please introduce other', {
@@ -35,7 +35,7 @@ const Register = ({ setToken, setConfirmJoin, save }) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.backBtnPstn}>
-                <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"}/>
+                <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"} />
             </View>
             <View style={styles.container}>
                 <Text>Register: </Text>
@@ -52,9 +52,10 @@ const Register = ({ setToken, setConfirmJoin, save }) => {
                                 onChangeText={setNewUserNickname}
                                 value={newUserNickname}
                                 placeholder='Introduzca Nickname' />
+                            <Text style={{ color: 'red' }}>Nickname is used</Text>
                         </>
                 }
-                <Button title='Register' onPress={tokenHandler} color={"orange"}/>
+                <Button title='Register' onPress={tokenHandler} color={"orange"} />
             </View>
         </View>
     )
