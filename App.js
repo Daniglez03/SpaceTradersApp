@@ -11,9 +11,9 @@ import Logout from './screens/Logout';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import Register from './screens/Register';
-import 'react-native-gesture-handler';
 import Loans from './screens/Loans';
 import Ships from './screens/Ships';
+import 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
 const STORE_TOKEN_KEY = 'mytoken'
@@ -40,6 +40,7 @@ export default function App() {
   const setLogout = () => {
     console.log("Logout...");
     setConfirmJoin(0)
+    save(STORE_TOKEN_KEY, '')
     setUserToken('')
   }
 
