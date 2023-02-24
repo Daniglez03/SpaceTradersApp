@@ -18,10 +18,9 @@ const Ships = ({token}) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.container}>
-                <Text style={styles.title}>Available Loans</Text>
+                <Text style={styles.title}>Available Ships</Text>
 
                 <FlatList data={ships.shipListings} renderItem={({ item, index }) => {
-                    console.log(item);
                     return (
                         ships === ''
                             ? <Text>No loans Available</Text>

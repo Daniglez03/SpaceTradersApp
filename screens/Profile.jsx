@@ -1,58 +1,37 @@
-import { Text, View, Image, Button, Pressable } from "react-native"
-import { useEffect, useState } from 'react';
+import { Text, View, Image, Pressable } from "react-native"
 import { StyleSheet } from 'react-native';
-
-import { getUserProfile } from '../services/SpaceTraders'
 
 import * as Clipboard from 'expo-clipboard'
 import Toast from 'react-native-root-toast';
 
-const Profile = ({ token }) => {
-    const [profile, setProfile] = useState('');
+const Profile = ({ token, profile }) => {
 
-    useEffect(() => {
-        const fetchUserAccount = async () => {
-            const profile = await getUserProfile(token);
-            if (profile !== null) {
-                setProfile(profile)
-            } else {
-                console.log("No hay perfil");
-            }
-        }
-        fetchUserAccount()
-    }, [])
-
-    const copyText = (text) => {
-        Clipboard.setStringAsync(text)
+    const copyText = (token) => {
+        Clipboard.setStringAsync(token)
         Toast.show(`Token : ${token} copiado en el portapapeles`, {
             duration: Toast.durations.LONG
         })
     }
 
-    function tabla() {
-        return (
-            <View style={{ borderWidth: 5, height: '100%', borderColor: 'white' }}>
-                <Pressable onPress={() => copyText(token)}>
-                    <Image style={{width: 30, height: 30, marginTop: 5, marginLeft: 5}} source={require('../assets/copy.png')}/>
-                </Pressable>
-                
-                <View style={styles.edit}>
-                    <Image style={styles.image} source={require('../assets/NiggaMelon.jpg')} />
-                    <Text style={{ paddingTop: 35 }}>Username:  <Text style={{fontSize: 20}}>{profile.user.username}</Text></Text>
-                </View>
-                <View style={styles.viewText}>
-                    <Text style={styles.textAlign}>ShipCount: {profile.user.shipCount}</Text>
-                    <Text style={styles.textAlign}>StructureCount: {profile.user.structureCount}</Text>
-                    <Text style={styles.textAlign}>JoinedAt: {profile.user.joinedAt}</Text>
-                    <Text style={styles.textAlign}>Credits: {profile.user.credits}</Text>
-                </View>
-            </View>
-        );
-    }
-
     return (
-        profile && tabla()
-    )
+        profile && 
+        <View style={{ borderWidth: 5, height: '100%', borderColor: 'white' }}>
+            <Pressable onPress={() => copyText(token)}>
+                <Image style={{width: 30, height: 30, marginTop: 5, marginLeft: 5}} source={require('../assets/copy.png')}/>
+            </Pressable>
+            
+            <View style={styles.edit}>
+                <Image style={styles.image} source={require('../assets/NiggaMelon.jpg')} />
+                <Text style={{ paddingTop: 35 }}>Username:  <Text style={{fontSize: 20}}>{profile.user.username}</Text></Text>
+            </View>
+            <View style={styles.viewText}>
+                <Text style={styles.textAlign}>ShipCount: {profile.user.shipCount}</Text>
+                <Text style={styles.textAlign}>StructureCount: {profile.user.structureCount}</Text>
+                <Text style={styles.textAlign}>JoinedAt: {profile.user.joinedAt}</Text>
+                <Text style={styles.textAlign}>Credits: {profile.user.credits}</Text>
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
