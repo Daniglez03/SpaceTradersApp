@@ -1,32 +1,14 @@
-import { useState } from "react";
-import { Button, Text, TextInput, View } from "react-native"
-import { StyleSheet } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native'
 
-import Toast from 'react-native-root-toast';
-
-const Home = ({onLogin}) => {
-    const [userToken,setUserToken] = useState('');
-
-    const tokenHandler = () => {
-        if (userToken !== '') {
-            onLogin(userToken)
-        } else {
-            Toast.show('Introduzca un Token para continuar', {
-                duration: Toast.durations.LONG
-            })
-        }
-    }
+const Home = ({ setConfirmJoin }) => {
 
     return (
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
             <View style={styles.container}>
-                <Text>Login: </Text>
-                <Text>Su token es: {userToken}</Text>
-                <TextInput
-                    onChangeText={setUserToken} 
-                    value={userToken} 
-                    placeholder='Introduzca token'/>
-                    <Button title='Login' onPress={tokenHandler} />
+                <View style={styles.position}>
+                    <Button title='Login' onPress={() => setConfirmJoin(1)} color={"green"} />
+                    <Button title='Register' onPress={() => setConfirmJoin(2)} color={"orange"} />
+                </View>
             </View>
         </View>
     )
@@ -35,7 +17,6 @@ const Home = ({onLogin}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'flex-end'
@@ -49,6 +30,11 @@ const styles = StyleSheet.create({
         width: 80,
         backgroundColor: 'lightgreen',
     },
+    position: {
+        height: 100,
+        display: 'flex',
+        justifyContent: 'space-between'
+    }
 })
 
 export default Home

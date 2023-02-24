@@ -18,8 +18,8 @@ const ServerStatus = () => {
             <View style={{flex: 1}}>
                 <View style={[styles.edit, styles.container]}>
                     {state
-                    ?<Image style={styles.image} source={require('../assets/switch-on.png')}/>
-                    :<Image style={styles.image} source={require('../assets/switch-off.png')}/>}
+                    ?<Image style={styles.image} source={require('../assets/serverStatus/switch-on.png')}/>
+                    :<Image style={styles.image} source={require('../assets/serverStatus/switch-off.png')}/>}
                     <Text>State: {state ? 'Online' : 'Offline'}</Text>
                 </View>
             </View>
