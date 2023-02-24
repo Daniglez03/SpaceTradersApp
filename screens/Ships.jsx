@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { getAvailableShips } from '../services/SpaceTraders';
 import { shipsAvailableImages } from '../images/ships.js';
 
-const Ships = ({token}) => {
+const Ships = ({ token }) => {
 
     const [ships, setShips] = useState([])
     useEffect(() => {
@@ -26,7 +26,7 @@ const Ships = ({token}) => {
                             ? <Text>No loans Available</Text>
                             : <View style={styles.modal_structure}>
                                 <View>
-                                    <Image source={shipsAvailableImages[index]} style={{height: 100, width: 100}} />
+                                    <Image source={shipsAvailableImages[index]} style={{ height: 100, width: 100 }} />
                                 </View>
                                 <View>
                                     <Text>Type: {item.type}</Text>

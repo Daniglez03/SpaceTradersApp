@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
 
-const Logout = ({setLogout}) => {
+const Logout = ({ setLogout }) => {
     return (
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
             <View style={styles.container}>
                 <Pressable onPress={setLogout} style={styles.button}>
                     <Text>LOGOUT</Text>

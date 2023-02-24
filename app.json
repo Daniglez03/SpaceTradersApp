@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/SpaceShip.png",
+      "image": "./assets/background/SpaceShip.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },

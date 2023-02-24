@@ -16,12 +16,12 @@ const Profile = ({ token, profile }) => {
     return (
         <View style={{ borderWidth: 5, height: '100%', borderColor: 'white' }}>
             <Pressable onPress={() => copyText(token)}>
-                <Image style={{width: 30, height: 30, marginTop: 5, marginLeft: 5}} source={require('../assets/others/copy.png')}/>
+                <Image style={{ width: 30, height: 30, marginTop: 5, marginLeft: 5 }} source={require('../assets/others/copy.png')} />
             </Pressable>
-            
+
             <View style={styles.edit}>
                 <Image style={styles.image} source={require('../assets/others/user.png')} />
-                <Text style={{ paddingTop: 35 }}>NickName:  <Text style={{fontSize: 20}}>{profile.user.username}</Text></Text>
+                <Text style={{ paddingTop: 35 }}>NickName:  <Text style={{ fontSize: 20 }}>{profile.user.username}</Text></Text>
             </View>
             <View style={styles.viewText}>
                 <Text style={styles.textAlign}><Text style={styles.blackAlign}>ShipCount: </Text>{profile.user.shipCount}</Text>

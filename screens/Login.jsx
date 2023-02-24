@@ -34,7 +34,7 @@ const Login = ({ setToken, setConfirmJoin, save }) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.backBtnPstn}>
-                <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"}/>
+                <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"} />
             </View>
             <View style={styles.container}>
                 <Text style={styles.text} >Login</Text>
@@ -56,7 +56,7 @@ const Login = ({ setToken, setConfirmJoin, save }) => {
                             <Text style={{ color: 'red' }}>SomeThing went wrong</Text>
                         </>
                 }
-                <Button title='Enter' onPress={() => {tokenHandler()}} color={"green"} />
+                <Button title='Enter' onPress={() => { tokenHandler() }} color={"green"} />
             </View>
         </View>
     )

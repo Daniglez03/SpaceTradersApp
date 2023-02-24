@@ -49,8 +49,8 @@ const Loans = ({ token, setRefresh }) => {
                                 <Text>- {item.amount} Crd</Text>
                                 <Text>- Rate: {item.rate} %</Text>
                                 <Text>- Term: {item.termInDays} days</Text>
-                                <Text style={{paddingBottom: 10}}>- Type: {item.type}</Text>
-                                <Button title='takeLoan' onPress={() => takeLoan(item.type)}/>
+                                <Text style={{ paddingBottom: 10 }}>- Type: {item.type}</Text>
+                                <Button title='takeLoan' onPress={() => takeLoan(item.type)} />
                             </View>
                     )
                 }} />
