@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Toast from 'react-native-root-toast';
 
-const Loans = ({ token }) => {
+const Loans = ({ token, setRefresh }) => {
     const [loans, setLoans] = useState('')
     const navigaton = useNavigation()
 
@@ -19,14 +19,15 @@ const Loans = ({ token }) => {
 
     const takeLoan = async (type) => {
         const data = await takeALoan(token, type);
-
-        if (data.loan.status === "CURRENT") {
-            Toast.show(`Loan '${data.loan.type}' take`, {
-                duration: Toast.durations.LONG
-            })
-            navigaton.navigate('Home')
-        }
-        if (data.error) {
+        try {
+            if (data.loan.status) {
+                Toast.show(`Loan '${data.loan.type}' take`, {
+                    duration: Toast.durations.LONG
+                })
+                setRefresh(true)
+                navigaton.navigate('Home')
+            }
+        } catch (error) {
             Toast.show(`You can only take the loan once`, {
                 duration: Toast.durations.LONG
             })

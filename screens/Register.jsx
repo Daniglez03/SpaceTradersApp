@@ -13,12 +13,11 @@ const Register = ({ setToken, setConfirmJoin, save }) => {
     const tokenHandler = async () => {
         if (newUserNickname !== '') {
             const data = await getNewUser(newUserNickname)
-            if (data.user.username) {
+            if (data.user) {
                 console.log("Nickname Creado");
                 setToken(data.token)
                 save(STORE_TOKEN_KEY, data.token)
-            }
-            if (data.error.message) {
+            } else {
                 console.log("El usuario ya existe");
                 setConfirmNewUser(false)
                 Toast.show('Invalid Nickname, Please introduce other', {
