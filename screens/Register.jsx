@@ -37,7 +37,7 @@ const Register = ({ setToken, setConfirmJoin, save }) => {
                 <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"} />
             </View>
             <View style={styles.container}>
-                <Text>Register: </Text>
+                <Text style={styles.text} >Register</Text>
                 {
                     confirmNewUser
                         ? <TextInput
@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
         borderColor: '#000',
         borderWidth: 1,
         borderRadius: 2,
+        marginTop: 10,
+        marginBottom: 10
     },
     inputIncorrect: {
         paddingRight: 10,
@@ -91,6 +93,8 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderWidth: 1,
         borderRadius: 2,
+        marginTop: 10,
+        marginBottom: 10
     },
     backBtnPstn: {
         display: "flex",
@@ -100,6 +104,9 @@ const styles = StyleSheet.create({
         marginTop: 5,
         paddingRight: 5
     },
+    text: {
+        fontSize: 20
+    }
 })
 
 export default Register

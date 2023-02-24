@@ -37,7 +37,7 @@ const Login = ({ setToken, setConfirmJoin, save }) => {
                 <Button title="← go Back" onPress={() => setConfirmJoin(0)} color={"red"}/>
             </View>
             <View style={styles.container}>
-                <Text>Login: </Text>
+                <Text style={styles.text} >Login</Text>
                 {
                     tokenCorrect
                         ? <>
@@ -56,7 +56,7 @@ const Login = ({ setToken, setConfirmJoin, save }) => {
                             <Text style={{ color: 'red' }}>SomeThing went wrong</Text>
                         </>
                 }
-                <Button title='Login' onPress={() => {tokenHandler()}} color={"green"} />
+                <Button title='Enter' onPress={() => {tokenHandler()}} color={"green"} />
             </View>
         </View>
     )
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        alignContent: 'flex-end'
+        alignContent: 'flex-end',
     },
     button: {
         marginBottom: 20,
@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
         borderColor: '#000',
         borderWidth: 1,
         borderRadius: 2,
+        marginTop: 10,
+        marginBottom: 10
     },
     inputIncorrect: {
         paddingRight: 10,
@@ -93,6 +95,8 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderWidth: 1,
         borderRadius: 2,
+        marginTop: 10,
+        marginBottom: 10
     },
     backBtnPstn: {
         display: "flex",
@@ -102,6 +106,9 @@ const styles = StyleSheet.create({
         marginTop: 5,
         paddingRight: 5
     },
+    text: {
+        fontSize: 20
+    }
 })
 
 export default Login
