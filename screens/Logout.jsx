@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
 
 const Logout = ({setLogout}) => {
     return (
         <View style={{flex:1}}>
             <View style={styles.container}>
-                <Button title='Logout' onPress={setLogout} />
+                <Pressable onPress={setLogout} style={styles.button}>
+                    <Text>LOGOUT</Text>
+                </Pressable>
             </View>
         </View>
     )
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         height: 40,
         width: 80,
-        backgroundColor: 'lightgreen',
+        backgroundColor: 'red',
     },
 })
 
